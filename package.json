@@ -1,0 +1,25 @@
+{
+  "name": "cloudformation-stack-basic-operations",
+  "version": "1.0.0",
+  "description": "",
+  "main": "cloudformation.js",
+  "dependencies": {
+    "bash-color": "^0.0.4",
+    "cli-table2": "^0.2.0"
+
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "tap test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fkonduzova/cloudformation-stack-basic-operations.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fkonduzova/cloudformation-stack-basic-operations/issues"
+  },
+  "homepage": "https://github.com/fkonduzova/cloudformation-stack-basic-operations#readme"
+}
