@@ -33,18 +33,8 @@ const END_OF_STACK_CREATE_STATUSES = new Set([
   checkStackStatusPeriod = 5000
 
 class CloudFormationStack {
-  constructor (accessKeyId, secretAccessKey, region) {
-    /*AWS.config.update({
-      accessKeyId: accessKeyId,
-      secretAccessKey: secretAccessKey,
-      region: region,
-    })*/
-    this.cloudFormation = new AWS.CloudFormation({
-      apiVersion: "2010-09-09",
-      accessKeyId: accessKeyId,
-      secretAccessKey: secretAccessKey,
-      region: region,
-    })
+  constructor (params) {
+    this.cloudFormation = new AWS.CloudFormation(params)
     this.stackEventsNumber = 0
     this.intervalId = 0
   }
@@ -67,12 +57,6 @@ class CloudFormationStack {
   }
 
   deploy (params, opts) {
-    console.log('Params in deploy')
-    console.log(this.cloudFormation.config.accessKeyId)
-    console.log(this.cloudFormation.config.secretAccessKey)
-    console.log(this.cloudFormation.config.region)
-    console.log('End of params list')
-
     const options = opts ? opts : DEFAULT_CONCURRENCY_OPTIONS
     return through2Concurrent.obj({maxConcurrency: options.concurrency},
       (file, enc, callback) => {
@@ -81,6 +65,7 @@ class CloudFormationStack {
           if (err) {
             callback(err)
           } else {
+            console.log(`Starting deployment of stack: ${params.StackName}`)
             this.checkStackStatusPeriodically({StackName: params.StackName},
               END_OF_STACK_CREATE_STATUSES, SUCCESSFUL_STACK_DEPLOY,
               function (error, result) {
