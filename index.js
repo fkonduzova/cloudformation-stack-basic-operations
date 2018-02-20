@@ -68,9 +68,9 @@ class CloudFormationStack {
 
   deploy (params, opts) {
     console.log('Params in deploy')
-    console.log(this.cloudFormation.accessKeyId)
-    console.log(this.cloudFormation.secretAccessKey)
-    console.log(this.cloudFormation.region)
+    console.log(this.cloudFormation.config.accessKeyId)
+    console.log(this.cloudFormation.config.secretAccessKey)
+    console.log(this.cloudFormation.config.region)
     console.log('End of params list')
 
     const options = opts ? opts : DEFAULT_CONCURRENCY_OPTIONS
