@@ -81,7 +81,6 @@ class CloudFormationStack {
           if (err) {
             callback(err)
           } else {
-            console.log(`Starting deployment of stack: ${params.StackName}`)
             this.checkStackStatusPeriodically({StackName: params.StackName},
               END_OF_STACK_CREATE_STATUSES, SUCCESSFUL_STACK_DEPLOY,
               function (error, result) {
