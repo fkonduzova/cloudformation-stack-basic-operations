@@ -40,7 +40,7 @@ class CloudFormationStack {
       region: region,
     })*/
     this.cloudFormation = new AWS.CloudFormation({
-      apiVersion: "2006-03-01",
+      apiVersion: "2010-09-09",
       accessKeyId: accessKeyId,
       secretAccessKey: secretAccessKey,
       region: region,
