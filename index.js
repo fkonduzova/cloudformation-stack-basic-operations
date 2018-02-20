@@ -34,12 +34,17 @@ const END_OF_STACK_CREATE_STATUSES = new Set([
 
 class CloudFormationStack {
   constructor (accessKeyId, secretAccessKey, region) {
-    AWS.config.update({
+    /*AWS.config.update({
+      accessKeyId: accessKeyId,
+      secretAccessKey: secretAccessKey,
+      region: region,
+    })*/
+    this.cloudFormation = new AWS.CloudFormation({
+      apiVersion: "2006-03-01",
       accessKeyId: accessKeyId,
       secretAccessKey: secretAccessKey,
       region: region,
     })
-    this.cloudFormation = new AWS.CloudFormation()
     this.stackEventsNumber = 0
     this.intervalId = 0
   }
