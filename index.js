@@ -30,7 +30,8 @@ const END_OF_STACK_CREATE_STATUSES = new Set([
     delay: 0,
     concurrency: 1,
   },
-  checkStackStatusPeriod = 5000
+  CHECK_STACK_STATUS_PERIOD = 5000,
+  TIME_REGEX = /[0-2][0-9]:[0-5][0-9]:[0-5][0-9]/
 
 class CloudFormationStack {
   constructor (params) {
@@ -71,11 +72,11 @@ class CloudFormationStack {
               function (error, result) {
                 if (error) {
                   const err =
-                    new Error(`Could not create stack: ${params.StackName}`)
+                    new Error(`Could not deploy stack: ${params.StackName}`)
                   callback(err)
                 } else {
                   console.log(
-                    `Successful creation of stack: ${params.StackName}`)
+                    `Successful deployment of stack: ${params.StackName}`)
                   callback(null, result)
                 }
               })
@@ -144,7 +145,7 @@ class CloudFormationStack {
     this.intervalId = setInterval(
       this.checkStackStatus.bind(this, params,
         endOfProcessStatuses, successfulProcessStatus, callback),
-      checkStackStatusPeriod)
+      CHECK_STACK_STATUS_PERIOD)
   }
 
   checkStackStatus (
@@ -218,8 +219,7 @@ class CloudFormationStack {
     data.forEach((elem) => {
       let row = []
       row.push(
-        `[${elem.Timestamp.toISOString().
-          match(/[0-2][0-9]:[0-5][0-9]:[0-5][0-9]/)[0]}]`,
+        `[${elem.Timestamp.toISOString().match(TIME_REGEX)[0]}]`,
         elem.LogicalResourceId,
         elem.ResourceType,
         this.getStatusColor(elem.ResourceStatus),
