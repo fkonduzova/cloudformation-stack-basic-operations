@@ -4,9 +4,11 @@
   "description": "",
   "main": "cloudformation.js",
   "dependencies": {
+    "aws-sdk": "^2.227.1",
     "bash-color": "^0.0.4",
-    "cli-table2": "^0.2.0"
-
+    "cli-table2": "^0.2.0",
+    "save": "^2.3.2",
+    "through2-concurrent": "^1.1.1"
   },
   "devDependencies": {},
   "scripts": {
